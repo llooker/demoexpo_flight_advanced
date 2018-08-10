@@ -18,7 +18,7 @@ view: carriers {
     sql: ${TABLE}.nickname ;;
     link: {
       label: "Carrier Dashboard"
-      url: "https://demoexpo.looker.com/dashboards/23?Carrier={{ value }}&Minutes%20Delayed=15"
+      url: "https://demoexpo.looker.com/dashboards/28?Carrier={{ value }}&Minutes%20Delayed=15"
       icon_url: "http://looker.com/favicon.ico"
     }
   }

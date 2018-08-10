@@ -27,6 +27,7 @@ view: flights {
   dimension: carrier {
     type: string
     sql: ${TABLE}.carrier ;;
+    drill_fields: [origin, destination]
   }
 
   dimension_group: dep {
@@ -34,6 +35,7 @@ view: flights {
     timeframes: [
       raw,
       time,
+      hour_of_day,
       date,
       month,
       year
@@ -61,16 +63,19 @@ view: flights {
   dimension: origin {
     type: string
     sql: ${TABLE}.origin ;;
+    drill_fields: [carrier, destination]
   }
 
   dimension: destination {
     type: string
     sql: ${TABLE}.destination ;;
+    drill_fields: [carrier, origin]
   }
 
   dimension: route {
     type: string
     sql: concat(${origin}, '-', ${destination} )  ;;
+    drill_fields: [carrier, origin, destination]
   }
 
   ## Mergers
@@ -81,10 +86,11 @@ view: flights {
     sql:
         CASE
           WHEN ${carrier} = 'US' and ${dep_date} > '2013-06-01' then 'AA' --2013 Ameirican - US Air Merger
-          WHEN ${carrier} = 'NW' and ${dep_date} > '2010-01-01' then 'DL' --2008 Delta - Northwest Merger
+          WHEN ${carrier} = 'NW' and ${dep_date} > '2008-09-01' then 'DL' --2008 Delta - Northwest Merger
           WHEN ${carrier} = 'HP' and ${dep_date} > '2005-10-01' then 'US' --2013 US Air - Am West Merger
           else ${carrier}
         END ;;
+    drill_fields: [origin, destination]
   }
 
   #####################

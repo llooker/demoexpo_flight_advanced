@@ -121,7 +121,6 @@ view: flights_advanced {
   }
 
   dimension: weight_percent_flight_minutes_delayed_value {
-
     type: number
     sql: {% parameter weight_percent_flight_minutes_delayed %} ;;
     hidden:  yes
@@ -242,14 +241,14 @@ view: flights_advanced {
     group_label: "Predictive Analytics"
     view_label: "Flights Advanced"
     type: number
-    sql: -0.102 ;;
+    sql: 1.302 ;;
   }
 
   dimension: yintercept {
     group_label: "Predictive Analytics"
     view_label: "Flights Advanced"
     type: number
-    sql: 0.178 ;;
+    sql: 0.078 ;;
   }
 
   dimension: predicted_percent_delayed_flights {
@@ -363,6 +362,7 @@ view: values_by_carrier_by_origin {
     label: "Lifetime Flights"
     view_label: "Origin"
     type: number
+    sql: ${TABLE}.flight_count ;;
   }
   dimension: lifetime_flight_tier {
     label: "Lifetime Flight Tiers"

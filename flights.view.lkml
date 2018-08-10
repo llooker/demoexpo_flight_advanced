@@ -78,21 +78,6 @@ view: flights {
     drill_fields: [carrier, origin, destination]
   }
 
-  ## Mergers
-
-  dimension: updated_carrier {
-    description: "Accounts for 2013 American-US Air, 2008 Delta-NW, 2005 US Air - AM West Mergers"
-    type: string
-    sql:
-        CASE
-          WHEN ${carrier} = 'US' and ${dep_date} > '2013-06-01' then 'AA' --2013 Ameirican - US Air Merger
-          WHEN ${carrier} = 'NW' and ${dep_date} > '2008-09-01' then 'DL' --2008 Delta - Northwest Merger
-          WHEN ${carrier} = 'HP' and ${dep_date} > '2005-10-01' then 'US' --2013 US Air - Am West Merger
-          else ${carrier}
-        END ;;
-    drill_fields: [origin, destination]
-  }
-
   #####################
   ## % Delays
   #####################
@@ -216,5 +201,20 @@ view: flights {
       count_delayed_flights,
       flight_count
     ]
+  }
+
+  ## Mergers
+
+  dimension: updated_carrier {
+    description: "Accounts for 2013 American-US Air, 2008 Delta-NW, 2005 US Air - AM West Mergers"
+    type: string
+    sql:
+        CASE
+          WHEN ${carrier} = 'US' and ${dep_date} > '2013-06-01' then 'AA' --2013 Ameirican - US Air Merger
+          WHEN ${carrier} = 'NW' and ${dep_date} > '2008-09-01' then 'DL' --2008 Delta - Northwest Merger
+          WHEN ${carrier} = 'HP' and ${dep_date} > '2005-10-01' then 'US' --2013 US Air - Am West Merger
+          else ${carrier}
+        END ;;
+    drill_fields: [origin, destination]
   }
 }

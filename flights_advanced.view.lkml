@@ -311,7 +311,7 @@ view: flights_advanced {
 
 view: values_by_carrier_by_origin {
   derived_table: {
-    persist_for: "10 hours"
+    # persist_for: "10 hours"
     explore_source: flights {
       column: carrier {}
       column: origin {}
